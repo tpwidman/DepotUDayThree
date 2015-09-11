@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="styles.css">
+		<script>
+			document.addEventListener("DOMContentLoaded", createButton);
+			
+			var nextID = 0;
+			
+			function createButton(){
+				var myButton = document.createElement("button");
+				var myText = document.createTextNode("Add Node");;
+				myButton.style.height= "40px";
+				myButton.style.width="75px";
+				myButton.style.align= "center";
+				myButton.style.value= "click me";
+				myButton.style.marginLeft="45%";
+				myButton.style.marginRight="45%";
+				document.body.appendChild(myButton);
+				myButton.appendChild(myText);
+				myButton.addEventListener("click", createBlock);	
+			}
+					
+			function squareClick(e) {
+				e.target.style.backgroundColor= "getRandomColor";
+			}
+			
+			function createBlock(){
+				var div = document.createElement("div");
+				document.body.appendChild(div);
+				div.className = "square-div";
+				div.id = nextID;
+				nextID += 1;
+				div.addEventListener("mouseenter",showID);
+				div.addEventListener("mouseleave",clearID);
+				div.addEventListener("click",changeBackground);
+				div.addEventListener("dblclick",removeSibling);
+			}
+			
+			function changeBackground(e){
+				
+					function getRandomColor() {
+    				var letters = '0123456789ABCDEF'.split('');
+  				 	var color = '#';
+   					for (var i = 0; i < 6; i++ ) {
+        			color += letters[Math.floor(Math.random() * 16)];
+					}   			
+	 				return color;
+					}
+					
+				e.target.style.backgroundColor = getRandomColor();
+			}
+			
+			function showID(e){
+				var mouseoverText = document.createTextNode(e.target.id);
+				e.target.appendChild(mouseoverText);
+			}
+			function clearID(e){
+				e.target.firstChild.remove();
+			}
+			
+			function removeSibling(e)
+			{
+				if (e.target.id % 2 == 0 && e.target.nextSibling.className === "square-div"){
+					e.target.previousSibling.remove();
+					
+				} else {
+					alert("Sibling block does not exist!");
+				}
+				if (e.target.id % 2 !== 0 && e.target.previousSibling.className === "square-div"){
+					e.target.nextSibling.remove();
+					
+				} else{
+					alert("Sibling block does not exist!")
+					}	
+				}
+				
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
